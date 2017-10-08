@@ -21,7 +21,7 @@ library(fmsb)
 #names(Evaluation) <- c("Overall Course", "Overall Teacher", "Professional Expertise")
 
 # Add a row:
-Evaluation <- rbind(Evaluation, c(1.9, 1.7, 1.7))
+#Evaluation <- rbind(Evaluation, c(1.9, 1.7, 1.7))
 
 
 
@@ -36,7 +36,7 @@ summary(Evaluation)
 
 
 #
-# Plot a radar chart:
+# Plot a radar chart ####
 #
 
 # Max values (outher)
@@ -69,3 +69,31 @@ radarchart(radarData,
            # Grid:
            cglcol="black", cglty=1, axislabcol="black"
 )
+
+
+
+#
+# Plot a boxplot ####
+#
+
+boxplotData <- as.data.frame(Evaluation$`Overall Course`)
+boxplotData <- cbind(boxplotData, 'Overall Course')
+names(boxplotData) <- c('Rating', 'Subject')
+levels(boxplotData$Subject) <- c('Overall Course', 'Overall Teacher', 'Professional Expertise')
+
+for(row in seq(1, nrow(Evaluation))) {
+  boxplotData <- rbind(boxplotData, c(Evaluation[row,]$`Overall Teacher`, 'Overall Teacher'))
+  boxplotData <- rbind(boxplotData, c(Evaluation[row,]$`Professional Expertise`, 'Professional Expertise'))
+}
+
+boxplotData$Rating <- as.numeric(as.character(boxplotData$Rating))
+
+View(boxplotData)
+summary(boxplotData)
+
+ggplot(boxplotData,
+       aes(
+          x = Subject,
+          y = Rating
+       ))
+  + geom_boxplot()
