@@ -91,9 +91,4 @@ boxplotData$Rating <- as.numeric(as.character(boxplotData$Rating))
 View(boxplotData)
 summary(boxplotData)
 
-ggplot(boxplotData,
-       aes(
-          x = Subject,
-          y = Rating
-       ))
-  + geom_boxplot()
+ggplot(boxplotData, aes(x = Subject, y = Rating)) + geom_boxplot()
