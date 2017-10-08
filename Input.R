@@ -91,4 +91,9 @@ boxplotData$Rating <- as.numeric(as.character(boxplotData$Rating))
 View(boxplotData)
 summary(boxplotData)
 
-ggplot(boxplotData, aes(x = Subject, y = Rating)) + geom_boxplot()
+fillColor <- "#4271AE"
+lineColor <- "#000000"
+
+ggplot(boxplotData, aes(x = Subject, y = Rating)) +
+  geom_boxplot(fill = fillColor, colour = lineColor, outlier.colour = "#000000", outlier.shape = 20) + 
+  scale_y_continuous(limits = c(1.0, 6.0), breaks = seq(1, 6, 1))
